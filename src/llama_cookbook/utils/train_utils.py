@@ -601,6 +601,8 @@ def save_train_params(train_config, fsdp_config, rank):
         print(f"Error: {file_name} is a directory, not a file.")
     else:
         # Write the YAML string to the file
+        if "../" in file_name or "..\\" in file_name:
+            raise Exception("Invalid file path")
         with open(file_name, 'w') as f:
             f.write(config_yaml)
         if rank==0:
@@ -617,5 +619,7 @@ def save_to_json(output_filename, train_step_loss, train_epoch_loss, train_step_
         "val_step_perplexity": val_step_ppl,
         "val_epoch_perplexity": val_epoch_ppl
     }
+    if "../" in output_filename or "..\\" in output_filename:
+        raise Exception("Invalid file path") 
     with open(output_filename, "w") as f:
         json.dump(metrics_data, f)
