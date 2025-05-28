@@ -17,14 +17,14 @@ jobs:
           fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
 
       - name: Check links in all markdown files
-        uses: gaurav-nelson/github-action-markdown-link-check@1.0.13
+        uses: gaurav-nelson/github-action-markdown-link-check@9710f0fec812ce0a3b98bef4c9d842fc1f39d976 # 1.0.13
         with:
           use-verbose-mode: 'yes'
           config-file: ".github/scripts/markdown_link_check_config.json"
 
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v41.0.0
+        uses: tj-actions/changed-files@6e79d6e3dbe48946636c2939c80ff5c84ff7f9fe # v41.0.0
         with:
 
           files: |
