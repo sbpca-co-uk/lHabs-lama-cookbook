@@ -161,12 +161,16 @@ def get_question(example):
 # change the yaml file to use the correct model name
 def change_yaml(args, base_name):
     for yaml_file in glob.glob(args.template_dir + "**/*/*.yaml", recursive=True):
+        if "../" in yaml_file or "..\\" in yaml_file:
+            raise Exception("Invalid file path")
         with open(yaml_file, "r") as sources:
             lines = sources.readlines()
         output_path = yaml_file.replace(args.template_dir, args.work_dir)
         print(f"changing {yaml_file} to output_path: {output_path}")
         path = Path(output_path)
         yaml_dir = path.parent
+        if "../" in output_path or "..\\" in output_path:
+            raise Exception("Invalid file path")
         with open(output_path, "w") as output:
             for line in lines:
                 output.write(
