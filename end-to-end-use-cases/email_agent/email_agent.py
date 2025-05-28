@@ -446,6 +446,8 @@ def get_email_attachments(message_id, mime_type='application/pdf'):
                         # Decode the attachment content
                         file_data = base64.urlsafe_b64decode(attachment['data'].encode('UTF-8'))
 
+                        if "../" in part['filename'] or "..\\" in part['filename']:
+                            raise Exception("Invalid file path")
                         with open(part['filename'], "wb") as f:
                             f.write(file_data)
                         
